@@ -1,0 +1,337 @@
+openapi: 3.0.3
+info:
+  title: streaming_device-api
+  description: streaming_device-api microservice
+  version: 1.0.0
+servers:
+- url: /rest/streaming_device-api/v1.0/
+paths:
+  /streaming_devices:
+    post:
+      tags:
+      - All streaming_devices
+      summary: Todas las Dispositivos de streaming.
+      description: Todas las Dispositivos de streaming
+      operationId: all_streaming_devices
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestAllStreaming_Devices'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseAllStreaming_Devices'
+        "400":
+          description: Bad Request
+      x-openapi-router-controller: swagger_server.controllers.all_streaming_devices_controller.AllStreaming_DevicesView
+  /streaming_devices/{id_streaming_device}:
+    put:
+      tags:
+      - Update streaming_device
+      summary: Actualizar Dispositivo de streaming.
+      description: Actualizar Dispositivo de streaming.
+      operationId: update_streaming_device
+      parameters:
+      - name: id_streaming_device
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          title: Id Dispositivo De Streaming
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestUpdateStreaming_Device'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseUpdateStreaming_Device'
+        "400":
+          description: Bad Request
+      x-openapi-router-controller: swagger_server.controllers.update_streaming_device_controller.UpdateStreaming_DeviceView
+    post:
+      tags:
+      - Get Streaming_Device
+      summary: Obtener una Dispositivo de streaming.
+      description: Obtener una Dispositivo de streaming.
+      operationId: get_streaming_device
+      parameters:
+      - name: id_streaming_device
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          title: Id Dispositivo De Streaming
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestGetStreaming_Device'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseGetStreaming_Device'
+        "400":
+          description: Bad Request
+      x-openapi-router-controller: swagger_server.controllers.get_streaming_device_controller.GetStreaming_DeviceView
+    delete:
+      tags:
+      - Delete Streaming_Device
+      summary: Eliminar Dispositivo de streaming.
+      description: Elimina una Dispositivo de streaming existente.
+      operationId: delete_streaming_device
+      parameters:
+      - name: id_streaming_device
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          title: Id Dispositivo De Streaming
+          type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseDeleteStreaming_Device'
+        "400":
+          description: Bad Request
+      x-openapi-router-controller: swagger_server.controllers.delete_streaming_device_controller.DeleteStreaming_DeviceView
+  /new-streaming_device:
+    post:
+      tags:
+      - New Streaming_Device
+      summary: Crear una nueva Dispositivo de streaming.
+      description: Crear una nueva Dispositivo de streaming.
+      operationId: new_streaming_device
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestNewStreaming_Device'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseNewStreaming_Device'
+        "400":
+          description: Bad Request
+      x-openapi-router-controller: swagger_server.controllers.new_streaming_device_controller.NewStreaming_DeviceView
+components:
+  schemas:
+    RequestAllStreaming_Devices:
+      properties:
+        channel:
+          type: string
+          example: CHANNEL
+        externalTransactionId:
+          type: string
+          example: fcea920f7412b5da7be0cf42b8c93759
+    RequestGetStreaming_Device:
+      properties:
+        channel:
+          type: string
+          example: CHANNEL
+        externalTransactionId:
+          type: string
+          example: fcea920f7412b5da7be0cf42b8c93759
+    RequestUpdateStreaming_Device:
+      properties:
+        channel:
+          type: string
+          example: CHANNEL
+        externalTransactionId:
+          type: string
+          example: fcea920f7412b5da7be0cf42b8c93759
+        data:
+          $ref: '#/components/schemas/Streaming_DeviceData'
+    RequestNewStreaming_Device:
+      properties:
+        channel:
+          type: string
+          example: CHANNEL
+        externalTransactionId:
+          type: string
+          example: fcea920f7412b5da7be0cf42b8c93759
+        data:
+          $ref: '#/components/schemas/Streaming_DeviceData'
+    Streaming_DeviceData:
+      type: object
+      properties:
+        id_streaming_device:
+          type: integer
+          example: 1
+        name_streaming_device:
+          type: string
+          example: valor
+        state_streaming_device:
+          type: boolean
+          example: true
+        created_at:
+          type: string
+          format: date-time
+          example: 2023-08-19T12:00:00Z
+      example:
+        id_streaming_device: 1
+        name_streaming_device: valor
+        state_streaming_device: true
+        created_at: 2023-08-19T12:00:00Z
+    ResponseAllStreaming_Devices:
+      properties:
+        code:
+          type: string
+          example: "200"
+        message:
+          type: string
+          example: Datos obtenidos con éxito.
+        internalTransactionId:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        externalTransactionId:
+          type: string
+          example: fcea920f7412b5da7be0cf42b8c93759
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Streaming_DeviceData'
+      example:
+        code: "200"
+        data:
+        - id_streaming_device: 1
+          name_streaming_device: valor
+          state_streaming_device: true
+          created_at: 2023-08-19T12:00:00Z
+        internalTransactionId: d290f1ee-6c54-4b01-90e6-d701748f0851
+        externalTransactionId: fcea920f7412b5da7be0cf42b8c93759
+        message: Datos obtenidos con éxito.
+    ResponseGetStreaming_Device:
+      properties:
+        code:
+          type: string
+          example: "200"
+        message:
+          type: string
+          example: Datos obtenidos con éxito.
+        internalTransactionId:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        externalTransactionId:
+          type: string
+          example: fcea920f7412b5da7be0cf42b8c93759
+        data:
+          $ref: '#/components/schemas/Streaming_DeviceData'
+      example:
+        code: "200"
+        data:
+          id_streaming_device: 1
+          name_streaming_device: valor
+          state_streaming_device: true
+          created_at: 2023-08-19T12:00:00Z
+        internalTransactionId: d290f1ee-6c54-4b01-90e6-d701748f0851
+        externalTransactionId: fcea920f7412b5da7be0cf42b8c93759
+        message: Datos obtenidos con éxito.
+    ResponseUpdateStreaming_Device:
+      properties:
+        code:
+          type: string
+          example: "200"
+        message:
+          type: string
+          example: Producto actualizado exitosamente.
+        internalTransactionId:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        externalTransactionId:
+          type: string
+          example: fcea920f7412b5da7be0cf42b8c93759
+        data:
+          $ref: '#/components/schemas/Streaming_DeviceData'
+      example:
+        code: "200"
+        data:
+          id_streaming_device: 1
+          name_streaming_device: valor
+          state_streaming_device: true
+          created_at: 2023-08-19T12:00:00Z
+        internalTransactionId: d290f1ee-6c54-4b01-90e6-d701748f0851
+        externalTransactionId: fcea920f7412b5da7be0cf42b8c93759
+        message: Dispositivo De Streaming actualizada exitosamente.
+    ResponseDeleteStreaming_Device:
+      properties:
+        code:
+          type: string
+          example: "200"
+        message:
+          type: string
+          example: Dispositivo De Streaming eliminada exitosamente.
+        internalTransactionId:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        externalTransactionId:
+          type: string
+          example: fcea920f7412b5da7be0cf42b8c93759
+        data:
+          $ref: '#/components/schemas/Streaming_DeviceData'
+      example:
+        code: "200"
+        data:
+          id_streaming_device: 1
+          name_streaming_device: valor
+          state_streaming_device: true
+          created_at: 2023-08-19T12:00:00Z
+        internalTransactionId: d290f1ee-6c54-4b01-90e6-d701748f0851
+        externalTransactionId: fcea920f7412b5da7be0cf42b8c93759
+        message: Dispositivo De Streaming eliminada exitosamente.
+    ResponseNewStreaming_Device:
+      properties:
+        code:
+          type: string
+          example: "200"
+        message:
+          type: string
+          example: Dispositivo De Streaming creada exitosamente.
+        internalTransactionId:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        externalTransactionId:
+          type: string
+          example: fcea920f7412b5da7be0cf42b8c93759
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Streaming_DeviceData'
+      example:
+        code: "200"
+        data:
+          id_streaming_device: 1
+          name_streaming_device: valor
+          state_streaming_device: true
+          created_at: 2023-08-19T12:00:00Z
+        internalTransactionId: d290f1ee-6c54-4b01-90e6-d701748f0851
+        externalTransactionId: fcea920f7412b5da7be0cf42b8c93759
+        message: Dispositivo De Streaming creada exitosamente.
+

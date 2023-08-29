@@ -1,0 +1,6 @@
+projectKey=xtrim-streaming_devices-api
+serverUrl=https://xtrim.nextsign.ec/sonar
+serverVersion=10.1.0.73491
+dashboardUrl=https://xtrim.nextsign.ec/sonar/dashboard?id=xtrim-streaming_devices-api
+ceTaskId=AYo-NoyqGjn1doKTRvL9
+ceTaskUrl=https://xtrim.nextsign.ec/sonar/api/ce/task?id=AYo-NoyqGjn1doKTRvL9
