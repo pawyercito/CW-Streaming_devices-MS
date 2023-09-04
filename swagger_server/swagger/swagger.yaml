@@ -4,7 +4,7 @@ info:
   description: streaming_device-api microservice
   version: 1.0.0
 servers:
-- url: /rest/streaming_device-api/v1.0/
+- url: /rest/cw-streaming_device-api/v1.0/
 paths:
   /streaming_devices:
     post:
